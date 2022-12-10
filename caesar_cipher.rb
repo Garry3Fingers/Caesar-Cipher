@@ -9,16 +9,21 @@ end
 def transform_arr(array, shift_factor)
   transformed_arr = array.map do |arr|
     arr.map do |chr|
-      if chr == chr.upcase
-        current_index = RANGE_UPCASE_CHR.find_index(chr)
-        new_index = current_index + shift_factor
-        new_index = new_index - 26 if new_index > 25
-        chr = RANGE_UPCASE_CHR[new_index]
+      #https://stackoverflow.com/questions/14551256/ruby-how-to-find-out-if-a-character-is-a-letter-or-a-digit
+      if chr.match?(/[[:alpha:]]/)
+        if chr == chr.upcase
+          current_index = RANGE_UPCASE_CHR.find_index(chr)
+          new_index = current_index + shift_factor
+          new_index = new_index - 26 if new_index > 25
+          chr = RANGE_UPCASE_CHR[new_index]
+        else
+          current_index = RANGE_LOWERCASE_CHR.find_index(chr)
+          new_index = current_index + shift_factor
+          new_index = new_index - 26 if new_index > 25
+          chr = RANGE_LOWERCASE_CHR[new_index]
+        end
       else
-        current_index = RANGE_LOWERCASE_CHR.find_index(chr)
-        new_index = current_index + shift_factor
-        new_index = new_index - 26 if new_index > 25
-        chr = RANGE_LOWERCASE_CHR[new_index]
+        chr
       end
     end
   end
@@ -31,4 +36,4 @@ def caesar_cipher(string, shift_factor)
   p shift_arr
 end
 
-caesar_cipher("What a string", 5)
+caesar_cipher("What a string!", 5)
