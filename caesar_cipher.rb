@@ -30,10 +30,17 @@ def transform_arr(array, shift_factor)
 
 end
 
+def create_cipher_str(string)
+  cipher_str = string.map { |arr| arr.join("") }.join(" ")
+end
+
 def caesar_cipher(string, shift_factor)
   converted_str_to_arr = convert_string_to_arr(string)
   shift_arr = transform_arr(converted_str_to_arr, shift_factor)
-  p shift_arr
+  cipher_str = create_cipher_str(shift_arr)
+  puts cipher_str
 end
 
 caesar_cipher("What a string!", 5)
+
+caesar_cipher("Is Kojima A Genius Or Not?", 3)
