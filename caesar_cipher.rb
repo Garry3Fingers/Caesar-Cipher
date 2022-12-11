@@ -27,7 +27,6 @@ def transform_arr(array, shift_factor)
       end
     end
   end
-
 end
 
 def create_cipher_str(string)
@@ -35,9 +34,13 @@ def create_cipher_str(string)
 end
 
 def caesar_cipher(string, shift_factor)
+
   converted_str_to_arr = convert_string_to_arr(string)
+
   shift_arr = transform_arr(converted_str_to_arr, shift_factor)
+
   cipher_str = create_cipher_str(shift_arr)
+
   puts cipher_str
 end
 
