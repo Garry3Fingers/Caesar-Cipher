@@ -32,4 +32,10 @@ describe '#caesar_cipher' do
       end
     end
   end
+
+  context 'when mixed case characters' do
+    it 'keeps the same case' do
+      expect(caesar_cipher('Is Kojima A Genius Or Not?', 3)).to eql('Lv Nrmlpd D Jhqlxv Ru Qrw?')
+    end
+  end
 end
