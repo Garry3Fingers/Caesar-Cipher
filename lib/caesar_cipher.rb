@@ -28,8 +28,8 @@ def transform_arr(array, shift_factor)
   end
 end
 
-def create_cipher_str(string)
-  string.map { |arr| arr.join('') }.join(' ')
+def create_cipher_str(nested_arr)
+  nested_arr.map { |arr| arr.join('') }.join(' ')
 end
 
 def caesar_cipher(string, shift_factor)
