@@ -1,11 +1,18 @@
 # Frozen_string_literal: true
 
-RANGE_LOWERCASE_CHR = Range.new('a', 'z').to_a
-
-RANGE_UPCASE_CHR = RANGE_LOWERCASE_CHR.map(&:upcase)
+LOWERCASE_CHR = Range.new('a', 'z').to_a
 
 def convert_string_to_arr(string)
   string.split.map { |word| word.split('') }
+end
+
+def shift_chr(chr, shift_factor)
+  current_index = LOWERCASE_CHR.find_index(chr.downcase)
+  new_index = current_index + shift_factor
+  new_index -= 26 if new_index > 25
+  char = LOWERCASE_CHR[new_index]
+
+  chr == chr.upcase ? char.upcase : char
 end
 
 def transform_arr(array, shift_factor)
@@ -13,17 +20,7 @@ def transform_arr(array, shift_factor)
     arr.map do |chr|
       # https://stackoverflow.com/questions/14551256/ruby-how-to-find-out-if-a-character-is-a-letter-or-a-digit
       if chr.match?(/[[:alpha:]]/)
-        if chr == chr.upcase
-          current_index = RANGE_UPCASE_CHR.find_index(chr)
-          new_index = current_index + shift_factor
-          new_index -= 26 if new_index > 25
-          RANGE_UPCASE_CHR[new_index]
-        else
-          current_index = RANGE_LOWERCASE_CHR.find_index(chr)
-          new_index = current_index + shift_factor
-          new_index -= 26 if new_index > 25
-          RANGE_LOWERCASE_CHR[new_index]
-        end
+        shift_chr(chr, shift_factor)
       else
         chr
       end
