@@ -2,40 +2,42 @@
 
 require './lib/caesar_cipher'
 
-describe '#caesar_cipher' do
-  context 'when all characters are lowercase' do
-    context 'when the string consists of one word' do
-      it 'right shift of 5' do
-        expect(caesar_cipher('what', 5)).to eql('bmfy')
+describe CaesarCipher do
+  describe '#make_cipher' do
+    context 'when all characters are lowercase' do
+      context 'when the string consists of one word' do
+        it 'right shift of 5' do
+          expect(subject.make_cipher('what', 5)).to eql('bmfy')
+        end
+
+        it 'wrap from z to a' do
+          expect(subject.make_cipher('zip', 3)).to eql('cls')
+        end
+
+        it 'works with punctuation' do
+          expect(subject.make_cipher('what?!', 5)).to eql('bmfy?!')
+        end
       end
 
-      it 'wrap from z to a' do
-        expect(caesar_cipher('zip', 3)).to eql('cls')
-      end
+      context 'when the string consists of several words' do
+        it 'right shift of 5' do
+          expect(subject.make_cipher('What a string', 5)).to eql('Bmfy f xywnsl')
+        end
 
-      it 'works with punctuation' do
-        expect(caesar_cipher('what?!', 5)).to eql('bmfy?!')
+        it 'wrap from z to a' do
+          expect(subject.make_cipher('zip zip', 3)).to eql('cls cls')
+        end
+
+        it 'works with punctuation' do
+          expect(subject.make_cipher('What a string!', 5)).to eql('Bmfy f xywnsl!')
+        end
       end
     end
 
-    context 'when the string consists of several words' do
-      it 'right shift of 5' do
-        expect(caesar_cipher('What a string', 5)).to eql('Bmfy f xywnsl')
+    context 'when mixed case characters' do
+      it 'keeps the same case' do
+        expect(subject.make_cipher('Is Kojima A Genius Or Not?', 3)).to eql('Lv Nrmlpd D Jhqlxv Ru Qrw?')
       end
-
-      it 'wrap from z to a' do
-        expect(caesar_cipher('zip zip', 3)).to eql('cls cls')
-      end
-
-      it 'works with punctuation' do
-        expect(caesar_cipher('What a string!', 5)).to eql('Bmfy f xywnsl!')
-      end
-    end
-  end
-
-  context 'when mixed case characters' do
-    it 'keeps the same case' do
-      expect(caesar_cipher('Is Kojima A Genius Or Not?', 3)).to eql('Lv Nrmlpd D Jhqlxv Ru Qrw?')
     end
   end
 end
