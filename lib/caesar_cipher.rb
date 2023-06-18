@@ -40,11 +40,5 @@ def caesar_cipher(string, shift_factor)
 
   shift_arr = transform_arr(converted_str_to_arr, shift_factor)
 
-  cipher_str = create_cipher_str(shift_arr)
-
-  puts cipher_str
+  create_cipher_str(shift_arr)
 end
-
-caesar_cipher('What a string!', 5)
-
-caesar_cipher('Is Kojima A Genius Or Not?', 3)
